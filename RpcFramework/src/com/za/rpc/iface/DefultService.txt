@@ -1,0 +1,5 @@
+package com.za.rpc.iface;
+
+public interface DefultService {
+
+}

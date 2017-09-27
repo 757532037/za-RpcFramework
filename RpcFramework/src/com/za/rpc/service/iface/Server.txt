@@ -1,0 +1,43 @@
+package com.za.rpc.service.iface;
+
+import java.io.IOException;
+
+/**
+ * 类Server.java的实现描述：TODO 服务中心
+ * 
+ * @author huxuefeng 2017年9月27日 上午10:54:21
+ */
+public interface Server {
+
+    /**
+     * 停止服务，类似于Spring的destory方法，数据库连接释放可以放在这里
+     */
+    public void stop();
+
+    /**
+     * 启动服务,类似于Spring的init方法，配置文件信息可以放在这里去执行
+     */
+    public void start() throws IOException;
+
+    /**
+     * 服务注册，和Spring容器初始化的AbstractBeanFactory
+     * 
+     * @param serviceInterface
+     * @param impl
+     */
+    public void register(Class serviceInterface, Class impl);
+
+    /**
+     * 服务的状态默认是false未启动，会在start方法中改变服务启动状态
+     * 
+     * @return
+     */
+    public boolean isRunning();
+
+    /**
+     * 获取服务通信端口
+     * 
+     * @return
+     */
+    public int getPort();
+}

@@ -1,0 +1,7 @@
+package com.za.rpc.iface;
+
+public interface HelloService {
+
+    String sayHi(String name);
+
+}

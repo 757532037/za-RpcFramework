@@ -1,0 +1,5 @@
+package com.za.load.nginx.rpc.iface;
+
+public interface DefultService {
+
+}

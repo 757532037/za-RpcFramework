@@ -1,0 +1,46 @@
+package com.za.load.nginx.rpc.test;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.za.load.nginx.rpc.framework.Tools;
+import com.za.load.nginx.rpc.iface.HelloService;
+import com.za.load.nginx.rpc.service.iface.Server;
+import com.za.load.nginx.rpc.service.impl.ServiceCenter;
+
+public class RunServer {
+
+    public static void main(String[] args) {
+        final String port = "80,90";
+        final String iface = "iface";
+        final String impl = "impl";
+        new Thread(new Runnable() {
+
+            public void run() {
+                try {
+                    Server serviceServer = new ServiceCenter(port);//绑定服务端口
+
+                    List<Class<?>> iServices = Tools.getClasses(HelloService.class);
+
+                    for (Class<?> clazziface : iServices) {
+                        List<Class<?>> allAssignedClass = Tools.getAllAssignedClassInIface2Iimpl(clazziface, iface,
+                                impl);
+                        if (allAssignedClass != null) {
+                            serviceServer.register(clazziface, allAssignedClass.get(0));
+
+                        }
+                    }
+
+                    //                    serviceServer.register(DefultService.class, DefultServiceImpl.class);
+                    //                    serviceServer.register(HelloService.class, HelloServiceImpl.class);
+                    //                    serviceServer.register(HLPackagePlanService.class, HLPackagePlanServiceImpl.class);
+
+                    serviceServer.start();
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+}

@@ -1,0 +1,12 @@
+package com.za.rpc.impl;
+
+import com.za.rpc.iface.HelloService;
+
+public class HelloServiceImpl implements HelloService {
+
+    public String sayHi(String name) {
+        System.out.println("my name is " + name);
+        return "Hi, " + name;
+    }
+
+}

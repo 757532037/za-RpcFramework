@@ -1,0 +1,26 @@
+package com.za.load.nginx.rpc.impl;
+
+import java.util.ArrayList;
+import java.util.UUID;
+
+import com.za.load.nginx.rpc.iface.HLPackagePlanService;
+
+/**
+ * 类HLPackagePlanImpl.java的实现描述：TODO 健康险套餐计划
+ * 
+ * @author huxuefeng 2017年9月26日 下午6:15:25
+ */
+public class HLPackagePlanServiceImpl implements HLPackagePlanService {
+
+    @Override
+    public ArrayList<String> getPackageList(Integer size) {
+        ArrayList<String> outList = new ArrayList<String>();
+        for (int i = 0; i < size; i++) {
+            String tempPackage = UUID.randomUUID() + "";
+            System.out.println(tempPackage);
+            outList.add(tempPackage);
+        }
+        return outList;
+    }
+
+}

@@ -1,0 +1,112 @@
+package com.za.io;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class Io {
+
+    public static void main(String[] args) {
+        //        HLPackageJobTemplate hlPackageJobTemplate = new HLPackageJobTemplate();
+        //        hlPackageJobTemplate.setAccidentRiskLevel("你");
+        //        hlPackageJobTemplate.setBaseName("好");
+        //        hlPackageJobTemplate.setChildName("中");
+        //        hlPackageJobTemplate.setIsChecked("国");
+        //        byte[] bt = obj2byte(hlPackageJobTemplate);
+
+        String path = "d:" + File.separator + "ts";
+        //        saveFile(bt, path);
+        byte[] readFile = readFile(path);
+        Object hlPackageJobTemplateSeril = (Object) byte2Obj(readFile);
+        System.out.println(hlPackageJobTemplateSeril.toString());
+    }
+
+    public static byte[] readFile(String filePath) {
+        File file = new File(filePath);
+        try {
+            FileInputStream fi = new FileInputStream(file);
+            byte[] bt = new byte[(int) file.length()];
+            fi.read(bt);
+
+            System.out.println(new String(bt));
+
+            return bt;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 保存文件
+     * 
+     * @param bt
+     * @param filePath
+     * @return
+     */
+    public static boolean saveFile(byte[] bt, String filePath) {
+        try {
+            File file = new File(filePath);
+            FileOutputStream fo = new FileOutputStream(file, false);
+            fo.write(bt);
+            fo.flush();
+            fo.close();
+            return true;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 字节转对象
+     * 
+     * @param bt
+     * @return
+     */
+    public static Object byte2Obj(byte[] bt) {
+
+        try {
+            ByteArrayInputStream bi = new ByteArrayInputStream(bt);//创建字节数组输入流，读取字节bt
+            ObjectInputStream os = new ObjectInputStream(bi);//创建对象输入流，并读取bi流
+            Object readObject = os.readObject();//读取缓冲区字节转对象
+            return readObject;
+        } catch (IOException | ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 对象转字节
+     * 
+     * @param obj
+     * @return
+     */
+    public static byte[] obj2byte(Object obj) {
+
+        byte[] bytes = null;
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();//创建字节数组输出流
+            ObjectOutputStream oo = new ObjectOutputStream(bo);//创建对象输出流输出到bo
+            oo.writeObject(obj);//设置对象流的输出对象
+            bytes = bo.toByteArray();//获取对象的字节，对象需要序列化
+
+            bo.close();
+            oo.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bytes;
+    }
+
+}

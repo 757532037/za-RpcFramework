@@ -1,0 +1,12 @@
+package com.za.load.nginx.rpc.impl;
+
+import com.za.load.nginx.rpc.iface.HelloService;
+
+public class HelloServiceImpl implements HelloService {
+
+    public String sayHi(String name) {
+        System.out.println("my name is " + name);
+        return "Hi, " + name;
+    }
+
+}

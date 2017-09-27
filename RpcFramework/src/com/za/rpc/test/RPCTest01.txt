@@ -1,0 +1,21 @@
+package com.za.rpc.test;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
+import com.za.rpc.iface.HLPackagePlanService;
+import com.za.rpc.iface.HelloService;
+import com.za.rpc.proxy.RPCClient;
+
+public class RPCTest01 {
+
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+
+        HelloService service = RPCClient.getRemoteProxyObj(HelloService.class, new InetSocketAddress("localhost", 80));
+        System.out.println(service.sayHi("test"));
+        HLPackagePlanService services = RPCClient.getRemoteProxyObj(HLPackagePlanService.class,
+                new InetSocketAddress("localhost", 80));
+        System.out.println(services.getPackageList(2).get(1));
+    }
+
+}

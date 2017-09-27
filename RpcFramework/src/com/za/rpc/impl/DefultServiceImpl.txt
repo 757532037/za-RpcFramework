@@ -1,0 +1,7 @@
+package com.za.rpc.impl;
+
+import com.za.rpc.iface.DefultService;
+
+public class DefultServiceImpl implements DefultService {
+
+}

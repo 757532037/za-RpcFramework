@@ -1,0 +1,7 @@
+package com.za.load.nginx.rpc.impl;
+
+import com.za.load.nginx.rpc.iface.DefultService;
+
+public class DefultServiceImpl implements DefultService {
+
+}
